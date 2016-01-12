@@ -14,10 +14,17 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     center();
 
-    m_model = new ProcessModel(this);
-    m_proxy = new QSortFilterProxyModel(this);
-    m_proxy->setSourceModel(m_model);
-    ui->processView->setModel(m_proxy);
+    // process
+    m_processmodel = new ProcessModel(this);
+    m_proxy_processmodel = new QSortFilterProxyModel(this);
+    m_proxy_processmodel->setSourceModel(m_processmodel);
+    ui->processView->setModel(m_proxy_processmodel);
+
+    // socket unix
+    m_socketunixmodel = new SocketUNIXModel(this);
+    m_proxy_socketunixmodel = new QSortFilterProxyModel(this);
+    m_proxy_socketunixmodel->setSourceModel(m_socketunixmodel);
+    ui->connView->setModel(m_proxy_socketunixmodel);
 }
 
 void MainWindow::center()
@@ -43,6 +50,6 @@ void MainWindow::center()
 MainWindow::~MainWindow()
 {
     delete ui;
-    delete m_model;
-    delete m_proxy;
+    delete m_processmodel;
+    delete m_socketunixmodel;
 }
