@@ -21,8 +21,6 @@ ApplicationWindow {
             TableView {
                 anchors.fill: parent
                 sortIndicatorVisible: true
-                sortIndicatorColumn: 0
-                sortIndicatorOrder: Qt.DescendingOrder
                 TableViewColumn {
                     role: "pid"
                     title: "PID"

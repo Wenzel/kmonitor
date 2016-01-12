@@ -12,8 +12,15 @@ class ProcessModel : public QAbstractListModel
 {
     Q_OBJECT
 public:
+    enum ProcessRoles {
+        PidRole= Qt::UserRole + 1,
+        NameRole,
+        CPUUsageRole,
+        CmdlineRole
+    };
 
     ProcessModel(QObject *parent = 0);
+    QHash<int, QByteArray> roleNames() const;
 
     void timerEvent(QTimerEvent *event);
     void updateModel();

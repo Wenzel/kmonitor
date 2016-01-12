@@ -23,6 +23,15 @@ ProcessModel::ProcessModel(QObject *parent)
     updateModel();
 }
 
+QHash<int, QByteArray> ProcessModel::roleNames() const {
+    QHash<int, QByteArray> roles;
+    roles[PidRole] = "pid";
+    roles[NameRole] = "name";
+    roles[CPUUsageRole] = "cpu_usage";
+    roles[CmdlineRole] = "cmdline";
+    return roles;
+}
+
 void ProcessModel::timerEvent(QTimerEvent *event)
 {
     Q_UNUSED(event);
@@ -53,20 +62,17 @@ QVariant ProcessModel::data(const QModelIndex & index, int role) const {
     if (!index.isValid())
         return QVariant();
 
-    if (role != Qt::DisplayRole)
-        return QVariant();
-
     const struct process_info_t &process = m_processes[index.row()];
 
-    switch (index.column())
+    switch (role)
     {
-    case 0:
+    case PidRole:
         return process.pid;
-    case 1:
+    case NameRole:
         return QString::fromUtf8(process.name.data(), process.name.size());
-    case 2:
+    case CPUUsageRole:
         return process.cpu_usage;
-    case 3:
+    case CmdlineRole:
         const char* delim = " ";
         std::stringstream res;
         std::vector<std::string> cmdline = process.cmdline;
