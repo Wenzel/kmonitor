@@ -17,6 +17,14 @@ project(KMonitor CXX)
 #-----------------------------------------------------------------------------
 # libsysinfo
 add_subdirectory(libsysinfo)
+include_directories(libsysinfo/src)
+
+# QML
+find_package(Qt5 REQUIRED COMPONENTS Widgets Declarative Qml)
+SET(CMAKE_AUTOMOC ON)
+SET(CMAKE_AUTOUIC ON)
+set(CMAKE_AUTORCC ON)
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
 #-----------------------------------------------------------------------------
 #                           BUILD TYPES & FLAGS
 #-----------------------------------------------------------------------------
