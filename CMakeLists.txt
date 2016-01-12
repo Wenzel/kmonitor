@@ -5,22 +5,18 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/modules")
 #-----------------------------------------------------------------------------
 #                               MODULES
 #-----------------------------------------------------------------------------
-include(static_analysis)
-include(doxygen)
+# include(static_analysis)
+# include(doxygen)
 include(ccache)
 #-----------------------------------------------------------------------------
 #                           GENERAL CONFIGURATION
 #-----------------------------------------------------------------------------
-project(ProjectName CXX)
+project(KMonitor CXX)
 #-----------------------------------------------------------------------------
 #                              DEPENDENCIES
 #-----------------------------------------------------------------------------
-# find your dependencies here !
-# ==> use cmake --help-module-list
-# ==> and cmake --help-module FindBoost to known which variables are setted
-# find_package(Boost COMPONENTS filesystem threads)
-# include_directories(${Boost_INCLUDE_DIRS})
-
+# libsysinfo
+add_subdirectory(libsysinfo)
 #-----------------------------------------------------------------------------
 #                           BUILD TYPES & FLAGS
 #-----------------------------------------------------------------------------
@@ -37,7 +33,7 @@ endif()
 #                               SOURCES
 #-----------------------------------------------------------------------------
 add_subdirectory(src)
-include(uninstall)
+# include(uninstall)
 # add_subdirectory("${CMAKE_SOURCE_DIR}/cmake/cpack") # enable packaging with CPack
 #-----------------------------------------------------------------------------
 #                               BUILD SUMMARY
