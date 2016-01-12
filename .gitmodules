@@ -1,0 +1,4 @@
+[submodule "libsysinfo"]
+	path = libsysinfo
+	url = https://github.com/Wenzel/libsysinfo
+	branch = master
