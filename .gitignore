@@ -26,3 +26,6 @@
 *.exe
 *.out
 *.app
+
+# build dir
+_build/
