@@ -7,6 +7,7 @@
 #include <QByteArray>
 
 #include "sysinfo.h"
+#include "processinfo.h"
 
 class ProcessModel : public QAbstractListModel
 {
@@ -26,7 +27,7 @@ public:
 private:
 
 
-    std::vector<struct process_info_t> m_processes;
+    std::vector<ProcessInfo> m_processes;
     int m_timerId;
     QStringList m_header;
 };

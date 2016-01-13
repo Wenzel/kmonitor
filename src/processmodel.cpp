@@ -56,22 +56,18 @@ QVariant ProcessModel::data(const QModelIndex & index, int role) const {
     if (role != Qt::DisplayRole)
         return QVariant();
 
-    const struct process_info_t &process = m_processes[index.row()];
+    const ProcessInfo &process = m_processes[index.row()];
 
     switch (index.column())
     {
     case 0:
-        return process.pid;
+        return process.pid();
     case 1:
-        return QString::fromUtf8(process.name.data(), process.name.size());
+        return QString::fromUtf8(process.name().data(), process.name().size());
     case 2:
-        return process.cpu_usage;
+        return process.cpuUsage();
     case 3:
-        const char* delim = " ";
-        std::stringstream res;
-        std::vector<std::string> cmdline = process.cmdline;
-        std::copy(cmdline.begin(), cmdline.end(), std::ostream_iterator<std::string>(res, delim));
-        return QString::fromUtf8(res.str().data(), res.str().size());
+        return QString::fromUtf8(process.cmdline().data(), process.cmdline().size());
     }
 
     return QVariant();
@@ -84,6 +80,7 @@ QVariant ProcessModel::headerData(int section, Qt::Orientation orientation, int 
     return QVariant();
 }
 
+/*
 void ProcessModel::callback(proc_event event)
 {
     pid_t pid;
@@ -129,3 +126,4 @@ void ProcessModel::callback(proc_event event)
         break;
     }
 }
+*/
