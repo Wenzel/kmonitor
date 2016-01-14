@@ -11,7 +11,7 @@
 ProcessModel::ProcessModel(QObject *parent)
     : QAbstractListModel(parent)
 {
-    m_header << "PID" << "Name" << "CPU Usage" << "Command Line";
+    m_header << "Name" << "User name" << "PID" << "CPU usage" << "Command line";
     m_timerId = startTimer(1000);
 
     /* not working
@@ -46,7 +46,7 @@ int ProcessModel::rowCount(const QModelIndex & parent) const
 
 int ProcessModel::columnCount(const QModelIndex &parent) const
 {
-    return 4;
+    return 5;
 }
 
 QVariant ProcessModel::data(const QModelIndex & index, int role) const {
@@ -61,12 +61,14 @@ QVariant ProcessModel::data(const QModelIndex & index, int role) const {
     switch (index.column())
     {
     case 0:
-        return process.pid();
-    case 1:
         return QString::fromUtf8(process.name().data(), process.name().size());
+    case 1:
+        return QString::fromUtf8(process.userName().data(), process.userName().size());
     case 2:
-        return process.cpuUsage();
+        return process.pid();
     case 3:
+        return process.cpuUsage();
+    case 4:
         return QString::fromUtf8(process.cmdline().data(), process.cmdline().size());
     }
 
