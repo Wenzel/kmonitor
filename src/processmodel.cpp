@@ -82,6 +82,11 @@ QVariant ProcessModel::headerData(int section, Qt::Orientation orientation, int 
     return QVariant();
 }
 
+const ProcessInfo& ProcessModel::dataAt(int row) const
+{
+    return m_processes[row];
+}
+
 /*
 void ProcessModel::callback(proc_event event)
 {

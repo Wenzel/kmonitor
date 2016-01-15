@@ -7,12 +7,22 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
     center();
+    m_processdetailview = nullptr;
+
+    // build custom menu
+    m_menu = new QMenu();
+    m_menu->addAction("Detail", this, SLOT(showProcessDetail()));
+    // set custom menu
+    ui->processView->setContextMenuPolicy(Qt::CustomContextMenu);
+    connect(ui->processView, SIGNAL(customContextMenuRequested(const QPoint&)),
+            this, SLOT(customMenu(const QPoint&)));
 
     // process
     m_processmodel = new ProcessModel(this);
@@ -26,6 +36,15 @@ MainWindow::MainWindow(QWidget *parent) :
     m_proxy_socketunixmodel->setSourceModel(m_socketunixmodel);
     ui->connView->setModel(m_proxy_socketunixmodel);
 }
+
+MainWindow::~MainWindow()
+{
+    delete ui;
+    delete m_processmodel;
+    delete m_socketunixmodel;
+}
+
+
 
 void MainWindow::center()
 {
@@ -47,9 +66,24 @@ void MainWindow::center()
     );
 }
 
-MainWindow::~MainWindow()
+void MainWindow::customMenu(const QPoint& point)
 {
-    delete ui;
-    delete m_processmodel;
-    delete m_socketunixmodel;
+    QModelIndex index = ui->processView->indexAt(point);
+    if (index.isValid())
+    {
+        // store the index to be used by future slots
+        m_selected_process = index;
+        m_menu->exec(QCursor::pos());
+    }
+}
+
+void MainWindow::showProcessDetail()
+{
+    // get the previously stored index
+    const ProcessInfo& p = m_processmodel->dataAt(m_selected_process.row());
+    // free previous view
+    if (m_processdetailview != nullptr)
+        delete m_processdetailview;
+    m_processdetailview = new ProcessDetailView(p);
+    m_processdetailview->show();
 }

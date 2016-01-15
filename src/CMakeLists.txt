@@ -4,6 +4,8 @@ add_executable(kmonitor
     mainwindow.ui
     processmodel.cpp
     socketunixmodel.cpp
+    processdetailview.cpp
+    processdetailview.ui
 )
 
 target_link_libraries(kmonitor 

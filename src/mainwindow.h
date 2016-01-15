@@ -6,6 +6,7 @@
 
 #include "processmodel.h"
 #include "socketunixmodel.h"
+#include "processdetailview.h"
 
 namespace Ui {
 class MainWindow;
@@ -25,8 +26,16 @@ private:
     SocketUNIXModel* m_socketunixmodel;
     QSortFilterProxyModel* m_proxy_processmodel;
     QSortFilterProxyModel* m_proxy_socketunixmodel;
+    QMenu* m_menu;
+    ProcessDetailView* m_processdetailview;
+    // temporary variable to pass data between slots
+    QModelIndex m_selected_process;
 
     void center();
+
+private slots:
+    void customMenu(const QPoint& point);
+    void showProcessDetail();
 };
 
 #endif // MAINWINDOW_H
