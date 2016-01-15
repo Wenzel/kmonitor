@@ -11,6 +11,8 @@ ProcessDetailView::ProcessDetailView(const ProcessInfo &pinfo, QWidget *parent) 
 {
     ui->setupUi(this);
     center();
+    QString name = QString::fromUtf8(pinfo.name().data(), pinfo.name().size());
+    setWindowTitle(name);
     setupImageView();
     setupEnvironmentView();
 }
@@ -57,8 +59,8 @@ void ProcessDetailView::setupEnvironmentView()
     ui->tableWidet_env->setRowCount(environ.size());
     ui->tableWidet_env->setColumnCount(2);
 
-    std::unordered_map<std::string, std::string>::const_iterator iter = environ.begin();
-    for (iter ; iter != environ.end(); iter++)
+    std::unordered_map<std::string, std::string>::const_iterator iter;
+    for (iter = environ.begin(); iter != environ.end(); iter++)
     {
         QString str_key = QString::fromUtf8(iter->first.data(), iter->first.size());
         QString str_value = QString::fromUtf8(iter->second.data(), iter->second.size());
