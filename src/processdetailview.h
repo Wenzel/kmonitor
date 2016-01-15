@@ -2,8 +2,11 @@
 #define PROCESSDETAILVIEW_H
 
 #include <QTabWidget>
+#include <QStandardItemModel>
+#include <QStandardItem>
 
 #include "processinfo.h"
+
 
 namespace Ui {
 class ProcessDetailView;
@@ -18,10 +21,12 @@ public:
     ~ProcessDetailView();
     void center();
     void setupImageView();
+    void setupEnvironmentView();
 
 private:
-    const ProcessInfo& m_pinfo;
     Ui::ProcessDetailView *ui;
+    const ProcessInfo& m_pinfo;
+    QStandardItemModel* m_env_model;
 };
 
 #endif // PROCESSDETAILVIEW_H
