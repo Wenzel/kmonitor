@@ -28,7 +28,7 @@ void ProcessDetailView::center()
     // size 70%
     QDesktopWidget dw;
 
-    int x=dw.width()*0.4;
+    int x=dw.width()*0.5;
     int y=dw.height()*0.5;
     this->setFixedSize(x,y);
 
@@ -45,6 +45,23 @@ void ProcessDetailView::center()
 
 void ProcessDetailView::setupImageView()
 {
+    // IDs
+    ui->lineEdit_pid->setText(QString::number(m_pinfo.pid()));
+    ui->lineEdit_ppid->setText(QString::number(m_pinfo.ppid()));
+    ui->lineEdit_sid->setText(QString::number(m_pinfo.sid()));
+    ui->lineEdit_tty->setText(QString::number(m_pinfo.ttyNr()));
+    ui->lineEdit_tpgid->setText(QString::number(m_pinfo.tpgid()));
+
+    // Uids/Gids
+    std::vector<int> uids = m_pinfo.uids();
+    std::vector<int> gids = m_pinfo.gids();
+    for (int i = 0 ; i < 4 ; i++)
+    {
+        ui->tableWidget_uids->setItem(0, i, new QTableWidgetItem(QString::number(uids[i])));
+        ui->tableWidget_uids->setItem(1, i, new QTableWidgetItem(QString::number(gids[i])));
+    }
+
+    // paths
     QString exe = QString::fromUtf8(m_pinfo.exe().data(), m_pinfo.exe().size());
     ui->lineEdit_exe->setText(exe);
     QString cmdline = QString::fromUtf8(m_pinfo.cmdline().data(), m_pinfo.cmdline().size());
