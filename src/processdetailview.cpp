@@ -16,6 +16,7 @@ ProcessDetailView::ProcessDetailView(ProcessInfo &pinfo, QWidget *parent) :
     setupImageView();
     setupEnvironmentView();
     setupOpenedFiles();
+    setupPerformance();
 }
 
 ProcessDetailView::~ProcessDetailView()
@@ -169,4 +170,32 @@ void ProcessDetailView::setupOpenedFiles()
         ui->tableWidget_fds->setItem(row, 0, item_fd);
         ui->tableWidget_fds->setItem(row, 1, item_path);
     }
+}
+
+void ProcessDetailView::setupPerformance()
+{
+    // fault
+    QString minflt = QString::number(m_pinfo.minflt());
+    ui->label_minflt->setText(minflt);
+
+    QString cminflt = QString::number(m_pinfo.cminflt());
+    ui->label_cminflt->setText(cminflt);
+
+    QString majflt = QString::number(m_pinfo.majflt());
+    ui->label_majflt->setText(majflt);
+
+    QString cmajflt = QString::number(m_pinfo.cmajflt());
+    ui->label_cmajflt->setText(cmajflt);
+    // time
+    QString utime = QString::number(m_pinfo.utime());
+    ui->label_utime->setText(utime);
+
+    QString stime = QString::number(m_pinfo.stime());
+    ui->label_stime->setText(stime);
+
+    QString cutime = QString::number(m_pinfo.cutime());
+    ui->label_cutime->setText(cutime);
+
+    QString cstime = QString::number(m_pinfo.cstime());
+    ui->label_cstime->setText(cstime);
 }

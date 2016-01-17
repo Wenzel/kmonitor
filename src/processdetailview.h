@@ -23,6 +23,7 @@ public:
     void setupImageView();
     void setupEnvironmentView();
     void setupOpenedFiles();
+    void setupPerformance();
 
 private:
     Ui::ProcessDetailView *ui;
