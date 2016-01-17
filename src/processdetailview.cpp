@@ -48,9 +48,14 @@ void ProcessDetailView::setupImageView()
     // IDs
     ui->lineEdit_pid->setText(QString::number(m_pinfo.pid()));
     ui->lineEdit_ppid->setText(QString::number(m_pinfo.ppid()));
+    ui->lineEdit_pgid->setText(QString::number(m_pinfo.pgid()));
     ui->lineEdit_sid->setText(QString::number(m_pinfo.sid()));
-    ui->lineEdit_tty->setText(QString::number(m_pinfo.ttyNr()));
+    QString tty_device = QString::fromUtf8(m_pinfo.ttyNr().data(), m_pinfo.ttyNr().size());
+    ui->lineEdit_tty->setText(tty_device);
     ui->lineEdit_tpgid->setText(QString::number(m_pinfo.tpgid()));
+    QDateTime currenttime = QDateTime::currentDateTime();
+    QDateTime starttime = currenttime.addSecs(- m_pinfo.startTime()); // add negative diff
+    ui->dateTimeEdit_starttime->setDateTime(starttime);
 
     // Uids/Gids
     std::vector<int> uids = m_pinfo.uids();

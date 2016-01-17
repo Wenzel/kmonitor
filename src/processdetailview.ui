@@ -36,7 +36,7 @@
            </property>
           </widget>
          </item>
-         <item row="0" column="1">
+         <item row="0" column="2">
           <widget class="QLineEdit" name="lineEdit_pid">
            <property name="readOnly">
             <bool>true</bool>
@@ -50,52 +50,82 @@
            </property>
           </widget>
          </item>
-         <item row="1" column="1">
+         <item row="1" column="2">
           <widget class="QLineEdit" name="lineEdit_ppid">
            <property name="readOnly">
             <bool>true</bool>
            </property>
           </widget>
          </item>
-         <item row="2" column="0">
+         <item row="3" column="0">
           <widget class="QLabel" name="label_6">
            <property name="text">
             <string>Session ID</string>
            </property>
           </widget>
          </item>
-         <item row="2" column="1">
+         <item row="3" column="2">
           <widget class="QLineEdit" name="lineEdit_sid">
            <property name="readOnly">
             <bool>true</bool>
            </property>
           </widget>
          </item>
-         <item row="3" column="0">
-          <widget class="QLabel" name="label_7">
-           <property name="text">
-            <string>Terminal</string>
-           </property>
-          </widget>
-         </item>
-         <item row="3" column="1">
+         <item row="5" column="2">
           <widget class="QLineEdit" name="lineEdit_tty">
            <property name="readOnly">
             <bool>true</bool>
            </property>
           </widget>
          </item>
-         <item row="4" column="0">
+         <item row="6" column="2">
+          <widget class="QLineEdit" name="lineEdit_tpgid">
+           <property name="readOnly">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item row="5" column="0">
+          <widget class="QLabel" name="label_7">
+           <property name="text">
+            <string>Controlling Terminal</string>
+           </property>
+          </widget>
+         </item>
+         <item row="6" column="0">
           <widget class="QLabel" name="label_8">
            <property name="text">
             <string>tpgid</string>
            </property>
           </widget>
          </item>
-         <item row="4" column="1">
-          <widget class="QLineEdit" name="lineEdit_tpgid">
+         <item row="7" column="0">
+          <widget class="QLabel" name="label_9">
+           <property name="text">
+            <string>Start Date</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="0">
+          <widget class="QLabel" name="label_10">
+           <property name="text">
+            <string>Process Group ID</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="2">
+          <widget class="QLineEdit" name="lineEdit_pgid"/>
+         </item>
+         <item row="7" column="2">
+          <widget class="QDateTimeEdit" name="dateTimeEdit_starttime">
+           <property name="frame">
+            <bool>true</bool>
+           </property>
            <property name="readOnly">
             <bool>true</bool>
+           </property>
+           <property name="accelerated">
+            <bool>false</bool>
            </property>
           </widget>
          </item>
