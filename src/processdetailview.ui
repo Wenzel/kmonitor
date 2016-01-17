@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>991</width>
-    <height>521</height>
+    <height>644</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -245,7 +245,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="label_pf_wo_worker">
+        <widget class="QLabel" name="label_pf_wq_worker">
          <property name="enabled">
           <bool>false</bool>
          </property>
@@ -395,7 +395,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="label_pf_throttle">
+        <widget class="QLabel" name="label_pf_less_throttle">
          <property name="enabled">
           <bool>false</bool>
          </property>

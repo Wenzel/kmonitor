@@ -69,6 +69,63 @@ void ProcessDetailView::setupImageView()
         ui->tableWidget_uids->setItem(1, i, new QTableWidgetItem(QString::number(gids[i])));
     }
 
+    // flags
+    unsigned int flags = m_pinfo.flags();
+    if (flags & PF_DUMPCORE)
+        ui->label_pf_dumpcore->setEnabled(true);
+    else if (flags & PF_EXITING)
+        ui->label_pf_exiting->setEnabled(true);
+    else if (flags & PF_EXITPIDONE)
+        ui->label_pf_exitpidone->setEnabled(true);
+    else if (flags & PF_FORKNOEXEC)
+        ui->label_pf_forknoexec->setEnabled(true);
+    else if (flags & PF_FREEZER_SKIP)
+        ui->label_pf_freezer_skip->setEnabled(true);
+    else if (flags & PF_FROZEN)
+        ui->label_pf_frozen->setEnabled(true);
+    else if (flags & PF_FSTRANS)
+        ui->label_pf_fstrans->setEnabled(true);
+    else if (flags & PF_KSWAPD)
+        ui->label_pf_kswapd->setEnabled(true);
+    else if (flags & PF_KTHREAD)
+        ui->label_pf_kthread->setEnabled(true);
+    else if (flags & PF_LESS_THROTTLE)
+        ui->label_pf_less_throttle->setEnabled(true);
+    else if (flags & PF_MCE_EARLY)
+        ui->label_pf_mce_early->setEnabled(true);
+    else if (flags & PF_MCE_PROCESS)
+        ui->label_pf_mce_process->setEnabled(true);
+    else if (flags & PF_MEMALLOC)
+        ui->label_pf_memalloc->setEnabled(true);
+    else if (flags & PF_MEMALLOC_NOIO)
+        ui->label_pf_memalloc_noio->setEnabled(true);
+    else if (flags & PF_MUTEX_TESTER)
+        ui->label_pf_mutex_tester->setEnabled(true);
+    else if (flags & PF_NOFREEZE)
+        ui->label->setEnabled(true);
+    else if (flags & PF_NO_SETAFFINITY)
+        ui->label_pf_no_setaffinity->setEnabled(true);
+    else if (flags & PF_NPROC_EXCEEDED)
+        ui->label_pf_nproc_exceeded->setEnabled(true);
+    else if (flags & PF_RANDOMIZE)
+        ui->label_pf_randomize->setEnabled(true);
+    else if (flags & PF_SIGNALED)
+        ui->label_pf_signaled->setEnabled(true);
+    else if (flags & PF_SUPERPRIV)
+        ui->label_pf_superpriv->setEnabled(true);
+    else if (flags & PF_SUSPEND_TASK)
+        ui->label_pf_suspend_task->setEnabled(true);
+    else if (flags & PF_SWAPWRITE)
+        ui->label_pf_swapwrite->setEnabled(true);
+    else if (flags & PF_USED_ASYNC)
+        ui->label_pf_used_async->setEnabled(true);
+    else if (flags & PF_USED_MATH)
+        ui->label_pf_used_math->setEnabled(true);
+    else if (flags & PF_VCPU)
+        ui->label_pf_vcpu->setEnabled(true);
+    else if (flags & PF_WQ_WORKER)
+        ui->label_pf_wq_worker->setEnabled(true);
+
     // paths
     QString exe = QString::fromUtf8(m_pinfo.exe().data(), m_pinfo.exe().size());
     ui->lineEdit_exe->setText(exe);
