@@ -57,6 +57,8 @@ void ProcessDetailView::setupImageView()
     QDateTime currenttime = QDateTime::currentDateTime();
     QDateTime starttime = currenttime.addSecs(- m_pinfo.startTime()); // add negative diff
     ui->dateTimeEdit_starttime->setDateTime(starttime);
+    QString state = QString::fromUtf8(m_pinfo.state().data(), m_pinfo.state().size());
+    ui->label_state->setText(state);
 
     // Uids/Gids
     std::vector<int> uids = m_pinfo.uids();
