@@ -17,15 +17,16 @@ class ProcessDetailView : public QTabWidget
     Q_OBJECT
 
 public:
-    explicit ProcessDetailView(const ProcessInfo& pinfo, QWidget *parent = 0);
+    explicit ProcessDetailView(ProcessInfo& pinfo, QWidget *parent = 0);
     ~ProcessDetailView();
     void center();
     void setupImageView();
     void setupEnvironmentView();
+    void setupOpenedFiles();
 
 private:
     Ui::ProcessDetailView *ui;
-    const ProcessInfo& m_pinfo;
+    ProcessInfo& m_pinfo;
     QStandardItemModel* m_env_model;
 };
 

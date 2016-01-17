@@ -3,7 +3,7 @@
 #include "processdetailview.h"
 #include "ui_processdetailview.h"
 
-ProcessDetailView::ProcessDetailView(const ProcessInfo &pinfo, QWidget *parent) :
+ProcessDetailView::ProcessDetailView(ProcessInfo &pinfo, QWidget *parent) :
     QTabWidget(parent),
     ui(new Ui::ProcessDetailView),
     m_pinfo(pinfo),
@@ -15,6 +15,7 @@ ProcessDetailView::ProcessDetailView(const ProcessInfo &pinfo, QWidget *parent) 
     setWindowTitle(name);
     setupImageView();
     setupEnvironmentView();
+    setupOpenedFiles();
 }
 
 ProcessDetailView::~ProcessDetailView()
@@ -77,9 +78,8 @@ void ProcessDetailView::setupImageView()
 
 void ProcessDetailView::setupEnvironmentView()
 {
-    const std::unordered_map<std::string, std::string> environ = m_pinfo.environ();
+    const std::unordered_map<std::string, std::string>& environ = m_pinfo.environ();
     ui->tableWidet_env->setRowCount(environ.size());
-    ui->tableWidet_env->setColumnCount(2);
 
     std::unordered_map<std::string, std::string>::const_iterator iter;
     for (iter = environ.begin(); iter != environ.end(); iter++)
@@ -91,5 +91,23 @@ void ProcessDetailView::setupEnvironmentView()
         int row = std::distance(environ.begin(), iter);
         ui->tableWidet_env->setItem(row, 0, item_key);
         ui->tableWidet_env->setItem(row, 1, item_value);
+    }
+}
+
+void ProcessDetailView::setupOpenedFiles()
+{
+    const std::unordered_map<int, std::string> fds = m_pinfo.fds();
+    ui->tableWidget_fds->setRowCount(fds.size());
+
+    std::unordered_map<int, std::string>::const_iterator iter;
+    for (iter = fds.begin(); iter != fds.end(); iter++)
+    {
+        QString fd = QString::number(iter->first);
+        QString path = QString::fromUtf8(iter->second.data(), iter->second.size());
+        QTableWidgetItem* item_fd = new QTableWidgetItem(fd);
+        QTableWidgetItem* item_path = new QTableWidgetItem(path);
+        int row = std::distance(fds.begin(), iter);
+        ui->tableWidget_fds->setItem(row, 0, item_fd);
+        ui->tableWidget_fds->setItem(row, 1, item_path);
     }
 }
