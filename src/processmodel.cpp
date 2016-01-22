@@ -69,7 +69,9 @@ QVariant ProcessModel::data(const QModelIndex & index, int role) const {
     case 3:
         return process.cpuUsage();
     case 4:
-        return QString::fromUtf8(process.cmdline().data(), process.cmdline().size());
+        return QString("TODO");
+        // TODO
+        //return QString::fromUtf8(process.cmdline().data(), process.cmdline().size());
     }
 
     return QVariant();
