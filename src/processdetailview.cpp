@@ -192,6 +192,40 @@ void ProcessDetailView::setupDetails()
     QString wchan_name = QString::fromUtf8(m_pinfo.wchanName().data(), m_pinfo.wchanName().size());
     ui->label_wchan_name->setText(wchan_name);
 
+    // start/end*
+    QString start_code = QString::number(m_pinfo.startCode(), 16);
+    ui->label_start_code->setText(start_code);
+
+    QString end_code = QString::number(m_pinfo.endCode(), 16);
+    ui->label_end_code->setText(end_code);
+
+    QString esp = QString::number(m_pinfo.kstkEsp(), 16);
+    ui->label_kstkesp->setText(esp);
+
+    QString eip = QString::number(m_pinfo.kstkEip(), 16);
+    ui->label_kstkeip->setText(eip);
+
+    QString start_data = QString::number(m_pinfo.startData(), 16);
+    ui->label_start_data->setText(start_data);
+
+    QString end_data = QString::number(m_pinfo.endData(), 16);
+    ui->label_end_data->setText(end_data);
+
+    QString start_brk = QString::number(m_pinfo.startBrk(), 16);
+    ui->label_start_brk->setText(start_brk);
+
+    QString start_arg = QString::number(m_pinfo.startArg(), 16);
+    ui->label_start_arg->setText(start_arg);
+
+    QString end_arg = QString::number(m_pinfo.endArg(), 16);
+    ui->label_end_arg->setText(end_arg);
+
+    QString start_env = QString::number(m_pinfo.startEnv(), 16);
+    ui->label_start_env->setText(start_env);
+
+    QString end_env = QString::number(m_pinfo.endEnv(), 16);
+    ui->label_end_env->setText(end_env);
+
     // Uids/Gids
     std::vector<int> uids = m_pinfo.uids();
     std::vector<int> gids = m_pinfo.gids();
