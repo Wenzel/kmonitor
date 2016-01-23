@@ -20,6 +20,8 @@ public:
     explicit ProcessDetailView(ProcessInfo& pinfo, QWidget *parent = 0);
     ~ProcessDetailView();
     void center();
+    void timerEvent(QTimerEvent *event);
+    void display();
     void setupImageView();
     void setupEnvironmentView();
     void setupOpenedFiles();
@@ -27,8 +29,9 @@ public:
 
 private:
     Ui::ProcessDetailView *ui;
-    ProcessInfo& m_pinfo;
+    ProcessInfo m_pinfo;
     QStandardItemModel* m_env_model;
+    int m_timerId;
 };
 
 #endif // PROCESSDETAILVIEW_H

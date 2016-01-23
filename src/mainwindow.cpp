@@ -80,7 +80,7 @@ void MainWindow::customMenu(const QPoint& point)
 void MainWindow::showProcessDetail()
 {
     // get the previously stored index
-    ProcessInfo p = m_processmodel->dataAt(m_selected_process.row());
+    ProcessInfo& p = m_processmodel->dataAt(m_selected_process.row());
     // free previous view
     if (m_processdetailview != nullptr)
         delete m_processdetailview;

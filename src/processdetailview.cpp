@@ -1,24 +1,23 @@
 #include <QDesktopWidget>
 #include <QPushButton>
 #include <QSpacerItem>
+#include <sstream>
 
 #include "processdetailview.h"
 #include "ui_processdetailview.h"
 
-ProcessDetailView::ProcessDetailView(ProcessInfo &pinfo, QWidget *parent) :
+ProcessDetailView::ProcessDetailView(ProcessInfo& pinfo, QWidget *parent) :
     QTabWidget(parent),
     ui(new Ui::ProcessDetailView),
     m_pinfo(pinfo),
     m_env_model(nullptr)
 {
     ui->setupUi(this);
+    m_timerId = startTimer(1000);
     center();
     QString name = QString::fromUtf8(pinfo.name().data(), pinfo.name().size());
     setWindowTitle(name);
-    setupImageView();
-    setupEnvironmentView();
-    setupOpenedFiles();
-    setupDetails();
+    display();
 }
 
 ProcessDetailView::~ProcessDetailView()
@@ -47,6 +46,21 @@ void ProcessDetailView::center()
                 );
 }
 
+void ProcessDetailView::timerEvent(QTimerEvent *event)
+{
+    Q_UNUSED(event);
+    m_pinfo.needUpdate();
+    display();
+}
+
+void ProcessDetailView::display()
+{
+    setupImageView();
+    setupEnvironmentView();
+    setupOpenedFiles();
+    setupDetails();
+}
+
 void ProcessDetailView::setupImageView()
 {
     // groupbox 1
@@ -55,14 +69,11 @@ void ProcessDetailView::setupImageView()
     QString exe = QString::fromUtf8(m_pinfo.exe().data(), m_pinfo.exe().size());
     ui->lineEdit_exe->setText(exe);
     const std::vector<std::string>& cmdline = m_pinfo.cmdline();
-    for (const std::string& arg : cmdline)
-    {
-        QString qarg = QString::fromUtf8(arg.data(), arg.size());
-        QPushButton* button = new QPushButton(qarg);
-        ui->horizontalLayout_cmdline->addWidget(button);
-    }
-    // hspacer
-    ui->horizontalLayout_cmdline->addStretch();
+    std::ostringstream imploded;
+    std::copy(cmdline.begin(), cmdline.end(), std::ostream_iterator<std::string>(imploded, " "));
+    QString qcmdline = QString::fromUtf8(imploded.str().data(), imploded.str().size());
+    ui->lineEdit_cmdline->setText(qcmdline);
+
     QString cwd = QString::fromUtf8(m_pinfo.cwd().data(), m_pinfo.cwd().size());
     ui->lineEdit_cwd->setText(cwd);
     QString state = QString::fromUtf8(m_pinfo.state().data(), m_pinfo.state().size());
@@ -86,6 +97,7 @@ void ProcessDetailView::setupImageView()
 
 void ProcessDetailView::setupEnvironmentView()
 {
+    ui->tableWidet_env->clear();
     const std::unordered_map<std::string, std::string>& environ = m_pinfo.environ();
     ui->tableWidet_env->setRowCount(environ.size());
 
@@ -104,6 +116,7 @@ void ProcessDetailView::setupEnvironmentView()
 
 void ProcessDetailView::setupOpenedFiles()
 {
+    ui->tableWidget_fds->clear();
     const std::unordered_map<int, std::string> fds = m_pinfo.fds();
     ui->tableWidget_fds->setRowCount(fds.size());
 

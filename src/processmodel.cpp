@@ -56,8 +56,9 @@ QVariant ProcessModel::data(const QModelIndex & index, int role) const {
     if (role != Qt::DisplayRole)
         return QVariant();
 
-    const ProcessInfo &process = m_processes[index.row()];
-
+    const ProcessInfo& const_process = m_processes[index.row()];
+    // since there is not definition of data() without const, we have to cast
+    ProcessInfo& process = const_cast<ProcessInfo&>(const_process);
     switch (index.column())
     {
     case 0:
@@ -84,7 +85,7 @@ QVariant ProcessModel::headerData(int section, Qt::Orientation orientation, int 
     return QVariant();
 }
 
-ProcessInfo ProcessModel::dataAt(int row) const
+ProcessInfo& ProcessModel::dataAt(int row)
 {
     return m_processes[row];
 }

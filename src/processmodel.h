@@ -18,7 +18,7 @@ public:
 
     void timerEvent(QTimerEvent *event);
     void updateModel();
-    ProcessInfo dataAt(int row) const;
+    ProcessInfo& dataAt(int row);
 
     int rowCount(const QModelIndex & parent = QModelIndex()) const;
     int columnCount(const QModelIndex &parent) const;
