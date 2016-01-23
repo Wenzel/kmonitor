@@ -32,7 +32,7 @@ void ProcessDetailView::center()
     QDesktopWidget dw;
 
     int x=dw.width()*0.5;
-    int y=dw.height()*0.5;
+    int y=dw.height()*0.6;
     this->setFixedSize(x,y);
 
     // center
@@ -185,6 +185,12 @@ void ProcessDetailView::setupDetails()
 
     QString delayacct_blkio_ticks = QString::number(m_pinfo.delayacctBlkioTicks());
     ui->label_delayacct_blkio_ticks->setText(delayacct_blkio_ticks);
+
+    QString wchan_addr = QString::number(m_pinfo.wchanAddr(), 16);
+    ui->label_wchan_addr->setText(wchan_addr);
+
+    QString wchan_name = QString::fromUtf8(m_pinfo.wchanName().data(), m_pinfo.wchanName().size());
+    ui->label_wchan_name->setText(wchan_name);
 
     // Uids/Gids
     std::vector<int> uids = m_pinfo.uids();
