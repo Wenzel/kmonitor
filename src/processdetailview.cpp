@@ -59,6 +59,7 @@ void ProcessDetailView::display()
     setupEnvironmentView();
     setupOpenedFiles();
     setupDetails();
+    setupPages();
 }
 
 void ProcessDetailView::setupImageView()
@@ -291,4 +292,63 @@ void ProcessDetailView::setupDetails()
         ui->label_pf_vcpu->setEnabled(true);
     else if (flags & PF_WQ_WORKER)
         ui->label_pf_wq_worker->setEnabled(true);
+
+    // Virtual Memory
+    QString vm_peak = QString::number(m_pinfo.vmPeak());
+    ui->label_vm_peak->setText(vm_peak);
+
+    QString vm_lck = QString::number(m_pinfo.vmLck());
+    ui->label_vm_lck->setText(vm_lck);
+
+    QString vm_size = QString::number(m_pinfo.vmSize());
+    ui->label_vm_size->setText(vm_size);
+
+    QString vm_pin = QString::number(m_pinfo.vmPin());
+    ui->label_vm_pin->setText(vm_pin);
+
+    QString vm_hwm = QString::number(m_pinfo.vmHwm());
+    ui->label_vm_hwm->setText(vm_hwm);
+
+    QString vm_rss = QString::number(m_pinfo.vmRss());
+    ui->label_vm_rss->setText(vm_rss);
+
+    QString vm_data = QString::number(m_pinfo.vmData());
+    ui->label_vm_data->setText(vm_data);
+
+    QString vm_stk = QString::number(m_pinfo.vmStk());
+    ui->label_vm_stk->setText(vm_stk);
+
+    QString vm_exe = QString::number(m_pinfo.vmExe());
+    ui->label_vm_exe->setText(vm_exe);
+
+    QString vm_lib = QString::number(m_pinfo.vmLib());
+    ui->label_vm_lib->setText(vm_lib);
+
+    QString vm_pte = QString::number(m_pinfo.vmPte());
+    ui->label_vm_pte->setText(vm_pte);
+
+    QString vm_pmd = QString::number(m_pinfo.vmPmd());
+    ui->label_vm_pmd->setText(vm_pmd);
+
+    QString vm_swap = QString::number(m_pinfo.vmSwap());
+    ui->label_vm_swap->setText(vm_swap);
+}
+
+void ProcessDetailView::setupPages()
+{
+    ui->tableWidget_maps->clear();
+    const std::vector<MMap>& maps = m_pinfo.maps();
+    ui->tableWidget_maps->setRowCount(maps.size());
+
+    std::vector<MMap>::const_iterator it;
+    for (it = maps.begin() ; it != maps.end() ; it++)
+    {
+        int row = std::distance(maps.begin(), it);
+        QString addr_from = QString::fromUtf8(it->addressFrom().data(), it->addressFrom().size());
+        QTableWidgetItem* item_addr_from = new QTableWidgetItem(addr_from);
+        ui->tableWidget_maps->setItem(row, 0, item_addr_from);
+        QString path = QString::fromUtf8(it->path().data(), it->path().size());
+        QTableWidgetItem* item_path = new QTableWidgetItem(path);
+        ui->tableWidget_maps->setItem(row, 1, item_path);
+    }
 }

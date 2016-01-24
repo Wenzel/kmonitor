@@ -26,6 +26,7 @@ public:
     void setupEnvironmentView();
     void setupOpenedFiles();
     void setupDetails();
+    void setupPages();
 
 private:
     Ui::ProcessDetailView *ui;
