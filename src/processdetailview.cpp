@@ -99,6 +99,9 @@ void ProcessDetailView::setupImageView()
 void ProcessDetailView::setupEnvironmentView()
 {
     ui->tableWidet_env->clear();
+    QStringList headers;
+    headers << "Variable" << "Value";
+    ui->tableWidet_env->setHorizontalHeaderLabels(headers);
     const std::unordered_map<std::string, std::string>& environ = m_pinfo.environ();
     ui->tableWidet_env->setRowCount(environ.size());
 
@@ -118,6 +121,9 @@ void ProcessDetailView::setupEnvironmentView()
 void ProcessDetailView::setupOpenedFiles()
 {
     ui->tableWidget_fds->clear();
+    QStringList headers;
+    headers << "Descriptor" << "Path";
+    ui->tableWidget_fds->setHorizontalHeaderLabels(headers);
     const std::unordered_map<int, std::string> fds = m_pinfo.fds();
     ui->tableWidget_fds->setRowCount(fds.size());
 
@@ -337,6 +343,9 @@ void ProcessDetailView::setupDetails()
 void ProcessDetailView::setupPages()
 {
     ui->tableWidget_maps->clear();
+    QStringList headers;
+    headers << "Address" << "Path" << "Permissions" << "Type" << "Flags";
+    ui->tableWidget_maps->setHorizontalHeaderLabels(headers);
     const std::vector<MMap>& maps = m_pinfo.maps();
     ui->tableWidget_maps->setRowCount(maps.size());
 
@@ -344,11 +353,28 @@ void ProcessDetailView::setupPages()
     for (it = maps.begin() ; it != maps.end() ; it++)
     {
         int row = std::distance(maps.begin(), it);
+        // address
         QString addr_from = QString::fromUtf8(it->addressFrom().data(), it->addressFrom().size());
         QTableWidgetItem* item_addr_from = new QTableWidgetItem(addr_from);
         ui->tableWidget_maps->setItem(row, 0, item_addr_from);
+        // path
         QString path = QString::fromUtf8(it->path().data(), it->path().size());
         QTableWidgetItem* item_path = new QTableWidgetItem(path);
         ui->tableWidget_maps->setItem(row, 1, item_path);
+        // permissions
+        QString permissions = QString::fromUtf8(it->permissions().data(), it->permissions().size());
+        QTableWidgetItem* item_permissions = new QTableWidgetItem(permissions);
+        ui->tableWidget_maps->setItem(row, 2, item_permissions);
+        // type
+        QString type = QString::fromUtf8(it->type().data(), it->type().size());
+        QTableWidgetItem* item_type = new QTableWidgetItem(type);
+        ui->tableWidget_maps->setItem(row, 3, item_type);
+        // flags
+        const std::vector<std::string>& flags = it->vmFlags();
+        std::ostringstream imploded;
+        std::copy(flags.begin(), flags.end(), std::ostream_iterator<std::string>(imploded, " "));
+        QString qflags = QString::fromUtf8(imploded.str().data(), imploded.str().size());
+        QTableWidgetItem* item_flags = new QTableWidgetItem(qflags);
+        ui->tableWidget_maps->setItem(row, 4, item_flags);
     }
 }
