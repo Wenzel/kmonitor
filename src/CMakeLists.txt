@@ -1,3 +1,5 @@
+add_subdirectory(vmmap)
+
 add_executable(kmonitor
     kmonitor.cpp
     mainwindow.cpp
