@@ -3,6 +3,8 @@
 
 #include <QMainWindow>
 
+#include "selectprocessview.h"
+
 namespace Ui {
 class MainWindow;
 }
@@ -19,6 +21,11 @@ private:
     void center();
 
     Ui::MainWindow *ui;
+    SelectProcessView* m_select_process_view;
+
+private slots:
+    void selectProcess();
+
 };
 
 #endif // MAINWINDOW_H

@@ -6,11 +6,13 @@
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::MainWindow)
+    ui(new Ui::MainWindow),
+    m_select_process_view(nullptr)
 {
     ui->setupUi(this);
     center();
     connect(ui->actionExit, SIGNAL(triggered(bool)), qApp, SLOT(quit()));
+    connect(ui->actionSelectProcess, SIGNAL(triggered(bool)), this, SLOT(selectProcess()));
 }
 
 MainWindow::~MainWindow()
@@ -36,4 +38,12 @@ void MainWindow::center()
             qApp->desktop()->availableGeometry()
         )
     );
+}
+
+void MainWindow::selectProcess()
+{
+    if (m_select_process_view != nullptr)
+        delete m_select_process_view;
+    m_select_process_view = new SelectProcessView(nullptr);
+    m_select_process_view->show();
 }
