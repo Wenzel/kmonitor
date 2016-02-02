@@ -29,3 +29,5 @@
 
 # build dir
 _build/
+
+CMakeLists.txt.user
