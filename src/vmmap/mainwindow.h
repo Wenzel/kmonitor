@@ -3,6 +3,8 @@
 
 #include <QMainWindow>
 
+#include "sysinfo.h"
+#include "processinfo.h"
 #include "selectprocessview.h"
 
 namespace Ui {
@@ -22,10 +24,10 @@ private:
 
     Ui::MainWindow *ui;
     SelectProcessView* m_select_process_view;
-
+    ProcessInfo* m_pinfo;
 private slots:
     void selectProcess();
-    void showProcessMap(const QString& name);
+    void showProcessMap(int pid);
 
 };
 

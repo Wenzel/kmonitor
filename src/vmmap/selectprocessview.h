@@ -19,7 +19,7 @@ public:
     ~SelectProcessView();
 
 signals:
-    void processChoosen(const QString& name);
+    void processChoosen(int pid);
 
 private:
     void center();

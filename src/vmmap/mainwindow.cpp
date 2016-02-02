@@ -45,13 +45,25 @@ void MainWindow::selectProcess()
     if (m_select_process_view != nullptr)
         delete m_select_process_view;
     m_select_process_view = new SelectProcessView(nullptr);
-    connect(m_select_process_view, SIGNAL(processChoosen(QString)), this, SLOT(showProcessMap(QString)));
+    connect(m_select_process_view, SIGNAL(processChoosen(int)), this, SLOT(showProcessMap(int)));
     m_select_process_view->show();
 }
 
 
-void MainWindow::showProcessMap(const QString &name)
+void MainWindow::showProcessMap(int pid)
 {
+    // delete subwindow
     m_select_process_view->close();
     delete m_select_process_view;
+
+    m_pinfo = new ProcessInfo(pid);
+
+    // fill header
+    QString name = QString::fromUtf8(m_pinfo->name().data(), m_pinfo->name().size());
+    ui->label_process_name->setText(name);
+    QIcon icon = QIcon::fromTheme(name, QIcon());
+    ui->label_icon->setPixmap(icon.pixmap(48));
+
+    QString str_pid = QString::number(pid);
+    ui->label_process_pid->setText(str_pid);
 }

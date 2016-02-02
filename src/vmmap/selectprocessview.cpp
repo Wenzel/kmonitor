@@ -84,8 +84,7 @@ void SelectProcessView::ok()
 {
     // get current row
     QList<QTableWidgetItem*> items = ui->tableWidget_selectprocess->selectedItems();
-    qDebug() << "totot : " << items.size();
-    QString name = items.at(0)->data(Qt::DisplayRole).toString();
+    int pid = items.at(1)->data(Qt::DisplayRole).toInt();
     // send to parent window
-    emit processChoosen(name);
+    emit processChoosen(pid);
 }
