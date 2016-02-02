@@ -25,6 +25,7 @@ private:
 
 private slots:
     void selectProcess();
+    void showProcessMap(const QString& name);
 
 };
 

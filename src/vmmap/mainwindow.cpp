@@ -1,5 +1,5 @@
 #include <QDesktopWidget>
-
+#include <QDebug>
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
@@ -45,5 +45,13 @@ void MainWindow::selectProcess()
     if (m_select_process_view != nullptr)
         delete m_select_process_view;
     m_select_process_view = new SelectProcessView(nullptr);
+    connect(m_select_process_view, SIGNAL(processChoosen(QString)), this, SLOT(showProcessMap(QString)));
     m_select_process_view->show();
+}
+
+
+void MainWindow::showProcessMap(const QString &name)
+{
+    m_select_process_view->close();
+    delete m_select_process_view;
 }

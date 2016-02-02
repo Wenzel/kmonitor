@@ -18,6 +18,9 @@ public:
     explicit SelectProcessView(QWidget *parent = 0);
     ~SelectProcessView();
 
+signals:
+    void processChoosen(const QString& name);
+
 private:
     void center();
 
@@ -26,6 +29,7 @@ private:
 
 private slots:
     void refresh();
+    void ok();
 };
 
 #endif // SELECTPROCESSVIEW_H

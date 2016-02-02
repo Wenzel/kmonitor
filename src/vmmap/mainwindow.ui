@@ -13,7 +13,28 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
-  <widget class="QWidget" name="centralwidget"/>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QTableView" name="tableView_maptype">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>100</y>
+      <width>771</width>
+      <height>221</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QTreeView" name="treeView_map">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>360</y>
+      <width>761</width>
+      <height>191</height>
+     </rect>
+    </property>
+   </widget>
+  </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
@@ -36,7 +57,7 @@
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionSelectProcess">
    <property name="text">
-    <string>Select Process...</string>
+    <string>&amp;Select Process...</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+P</string>
@@ -44,7 +65,7 @@
   </action>
   <action name="actionExit">
    <property name="text">
-    <string>Exit</string>
+    <string>&amp;Exit</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+Q</string>
