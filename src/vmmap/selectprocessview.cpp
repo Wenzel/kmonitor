@@ -4,6 +4,9 @@
 #include <QIcon>
 #include <QDebug>
 #include <algorithm>
+#include <pwd.h>
+#include <stdlib.h>
+#include <unistd.h>
 
 
 #include "selectprocessview.h"
@@ -56,13 +59,25 @@ void SelectProcessView::refresh()
     headers << "Name" << "PID" << "User";
     // get processes
     m_processes = processList();
+    // filter on username
+    uid_t uid = geteuid();
+    struct passwd *pw = getpwuid(uid);
+    std::string username = std::string(pw->pw_name);
+    std::vector<ProcessInfo> m_processes_user;
+    for (ProcessInfo& p : m_processes)
+    {
+        if (p.userName() == username)
+            m_processes_user.push_back(p);
+    }
+
+
     ui->tableWidget_selectprocess->setColumnCount(headers.size());
-    ui->tableWidget_selectprocess->setRowCount(m_processes.size());
+    ui->tableWidget_selectprocess->setRowCount(m_processes_user.size());
     ui->tableWidget_selectprocess->setHorizontalHeaderLabels(headers);
     std::vector<ProcessInfo>::iterator it;
-    for (it = m_processes.begin(); it != m_processes.end(); it++)
+    for (it = m_processes_user.begin(); it != m_processes_user.end(); it++)
     {
-        int row = std::distance(m_processes.begin(), it);
+        int row = std::distance(m_processes_user.begin(), it);
         // name
         QString name = QString::fromUtf8(it->name().data(), it->name().size());
         QTableWidgetItem* item_name = new QTableWidgetItem(name);

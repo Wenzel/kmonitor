@@ -2,10 +2,13 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QHash>
 
 #include "sysinfo.h"
 #include "processinfo.h"
+#include "mmap.h"
 #include "selectprocessview.h"
+#include "maptypemodel.h"
 
 namespace Ui {
 class MainWindow;
@@ -25,6 +28,10 @@ private:
     Ui::MainWindow *ui;
     SelectProcessView* m_select_process_view;
     ProcessInfo* m_pinfo;
+    MapTypeModel* m_map_type_model;
+    std::vector<MMap> m_maps;
+
+
 private slots:
     void selectProcess();
     void showProcessMap(int pid);
