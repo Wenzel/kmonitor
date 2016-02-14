@@ -3,12 +3,14 @@
 
 #include <QMainWindow>
 #include <QHash>
+#include <QSortFilterProxyModel>
 
 #include "sysinfo.h"
 #include "processinfo.h"
 #include "mmap.h"
 #include "selectprocessview.h"
 #include "maptypemodel.h"
+#include "mapdetailtreemodel.h"
 
 namespace Ui {
 class MainWindow;
@@ -29,8 +31,8 @@ private:
     SelectProcessView* m_select_process_view;
     ProcessInfo* m_pinfo;
     MapTypeModel* m_map_type_model;
-    std::vector<MMap> m_maps;
-
+    MapDetailTreeModel* m_map_detail_model;
+    QSortFilterProxyModel* m_proxy_map_detail_model;
 
 private slots:
     void selectProcess();

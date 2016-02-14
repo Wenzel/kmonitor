@@ -66,5 +66,20 @@ void MainWindow::showProcessMap(int pid)
     // pid
     QString str_pid = QString::number(pid);
     ui->label_process_pid->setText(str_pid);
+
+
+    // get list of MMap
+    const std::vector<MMap>& maps = m_pinfo->maps();
+
+    // build models
+    QStringList headers;
+    headers << "Address" << "Type" << "Virtual Size";
+    m_map_detail_model = new MapDetailTreeModel(headers, maps, this);
+    m_proxy_map_detail_model = new QSortFilterProxyModel(this);
+    m_proxy_map_detail_model->setSourceModel(m_map_detail_model);
+    ui->treeView_map->setModel(m_proxy_map_detail_model);
+
+    // enable ui
+    ui->treeView_map->setEnabled(true);
 }
 

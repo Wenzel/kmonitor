@@ -6,6 +6,8 @@ add_executable(vmmap
     selectprocessview.ui
     maptype.cpp
     maptypemodel.cpp
+    treeitem.cpp
+    mapdetailtreemodel.cpp
 )
 
 target_link_libraries(vmmap
