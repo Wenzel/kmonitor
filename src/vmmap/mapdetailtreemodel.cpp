@@ -15,8 +15,8 @@ QColor MapDetailTreeModel::getCategoryColor(const QString &category)
         return Qt::GlobalColor::green;
     else if (category == "Private")
         return Qt::GlobalColor::yellow;
-    else
-        return QColor();
+    else // Total
+        return Qt::GlobalColor::gray;
 }
 
 MapDetailTreeModel::MapDetailTreeModel(const QStringList& headers, const std::vector<MMap> &maps, QObject* parent)

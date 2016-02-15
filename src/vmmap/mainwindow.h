@@ -27,6 +27,7 @@ public:
 private:
     void center();
 
+
     Ui::MainWindow *ui;
     SelectProcessView* m_select_process_view;
     ProcessInfo* m_pinfo;
@@ -37,6 +38,7 @@ private:
 private slots:
     void selectProcess();
     void showProcessMap(int pid);
+    void categorySelected(const QModelIndex& index);
 
 };
 

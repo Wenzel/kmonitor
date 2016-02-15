@@ -12,6 +12,7 @@ MainWindow::MainWindow(QWidget *parent) :
     center();
     connect(ui->actionExit, SIGNAL(triggered(bool)), qApp, SLOT(quit()));
     connect(ui->actionSelectProcess, SIGNAL(triggered(bool)), this, SLOT(selectProcess()));
+    connect(ui->tableView_mapcategory, SIGNAL(clicked(QModelIndex)), this, SLOT(categorySelected(QModelIndex)));
 }
 
 MainWindow::~MainWindow()
@@ -91,3 +92,11 @@ void MainWindow::showProcessMap(int pid)
     ui->tableView_mapcategory->setEnabled(true);
 }
 
+void MainWindow::categorySelected(const QModelIndex &index)
+{
+    QString category = m_map_category_model->categoryAt(index.row());
+    if (category == "Total")
+        m_proxy_map_detail_model->setFilterRegExp(QRegExp(".*"));
+    else
+        m_proxy_map_detail_model->setFilterRegExp(QRegExp(category));
+}

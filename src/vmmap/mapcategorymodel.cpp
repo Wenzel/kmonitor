@@ -27,6 +27,17 @@ MapCategoryModel::MapCategoryModel(const QStringList &headers, const std::vector
         list->replace(1, QString::number(size));
 
     }
+    // add total
+    QList<QString>* list = new QList<QString>();
+    list->append("Total");
+    int total_size = 0;
+    for (QList<QString>* l : m_data)
+    {
+        int size = l->at(1).toInt();
+        total_size += size;
+    }
+    list->append(QString::number(total_size));
+    m_data.append(list);
 }
 
 int MapCategoryModel::rowCount(const QModelIndex &parent) const
@@ -70,3 +81,7 @@ void MapCategoryModel::addMap(const QString &category, const MMap &map)
 
 }
 
+QString MapCategoryModel::categoryAt(int row) const
+{
+    return m_data.at(row)->at(0);
+}
