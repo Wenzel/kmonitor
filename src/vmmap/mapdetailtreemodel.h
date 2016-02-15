@@ -5,6 +5,7 @@
 #include <QString>
 #include <QVariant>
 #include <QModelIndex>
+#include <QColor>
 
 #include "treeitem.h"
 #include "mmap.h"
@@ -27,7 +28,7 @@ public:
     QModelIndex parent(const QModelIndex &index) const Q_DECL_OVERRIDE;
     QVariant data(const QModelIndex &index, int role) const Q_DECL_OVERRIDE;
 
-
+    static QColor getCategoryColor(const QString& category);
 private:
 
     TreeItem *m_root;

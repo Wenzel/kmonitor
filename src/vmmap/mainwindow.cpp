@@ -73,7 +73,7 @@ void MainWindow::showProcessMap(int pid)
 
     // build models
     QStringList headers;
-    headers << "Address" << "Type" << "Virtual Size";
+    headers << "Address" << "Type" << "Virtual Size" << "Details";
     m_map_detail_model = new MapDetailTreeModel(headers, maps, this);
     m_proxy_map_detail_model = new QSortFilterProxyModel(this);
     m_proxy_map_detail_model->setSourceModel(m_map_detail_model);

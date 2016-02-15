@@ -1,6 +1,24 @@
 #include "mapdetailtreemodel.h"
 #include "../convert.h"
 
+QColor MapDetailTreeModel::getCategoryColor(const QString &category)
+{
+    if (category == "Image")
+        return Qt::GlobalColor::magenta;
+    else if (category == "Heap")
+        return Qt::GlobalColor::red;
+    else if (category == "Stack")
+        return Qt::GlobalColor::yellow;
+    else if (category == "Shareable")
+        return Qt::GlobalColor::cyan;
+    else if (category == "Mapped File")
+        return Qt::GlobalColor::green;
+    else if (category == "Private")
+        return Qt::GlobalColor::yellow;
+    else
+        return QColor();
+}
+
 MapDetailTreeModel::MapDetailTreeModel(const QStringList& headers, const std::vector<MMap> &maps, QObject* parent)
 {
     // convert QStringList to QList<QVariant>
@@ -17,6 +35,7 @@ MapDetailTreeModel::MapDetailTreeModel(const QStringList& headers, const std::ve
         data << TOQSTRING(map.addressFrom());
         data << TOQSTRING(map.category());
         data << map.size();
+        data << TOQSTRING(map.path());
         item = new TreeItem(data);
         m_root->appendChild(item);
     }
@@ -65,7 +84,7 @@ int MapDetailTreeModel::columnCount(const QModelIndex &parent) const
 }
 
 QModelIndex MapDetailTreeModel::index(int row, int column, const QModelIndex &parent)
-            const
+const
 {
     if (!hasIndex(row, column, parent))
         return QModelIndex();
@@ -104,12 +123,15 @@ QVariant MapDetailTreeModel::data(const QModelIndex &index, int role) const
     if (!index.isValid())
         return QVariant();
 
-    if (role != Qt::DisplayRole)
-        return QVariant();
-
     TreeItem *item = static_cast<TreeItem*>(index.internalPointer());
-
-    return item->data(index.column());
+    if (role == Qt::DisplayRole)
+        return item->data(index.column());
+    else if (role == Qt::BackgroundRole)
+    {
+        QString category = item->data(1).toString();
+        return QVariant(MapDetailTreeModel::getCategoryColor(category));
+    }
+    return QVariant();
 }
 
 
