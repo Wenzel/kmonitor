@@ -9,7 +9,7 @@
 #include "processinfo.h"
 #include "mmap.h"
 #include "selectprocessview.h"
-#include "maptypemodel.h"
+#include "mapcategorymodel.h"
 #include "mapdetailtreemodel.h"
 
 namespace Ui {
@@ -30,7 +30,7 @@ private:
     Ui::MainWindow *ui;
     SelectProcessView* m_select_process_view;
     ProcessInfo* m_pinfo;
-    MapTypeModel* m_map_type_model;
+    MapCategoryModel* m_map_category_model;
     MapDetailTreeModel* m_map_detail_model;
     QSortFilterProxyModel* m_proxy_map_detail_model;
 

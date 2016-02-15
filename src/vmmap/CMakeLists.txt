@@ -4,8 +4,7 @@ add_executable(vmmap
     mainwindow.ui
     selectprocessview.cpp
     selectprocessview.ui
-    maptype.cpp
-    maptypemodel.cpp
+    mapcategorymodel.cpp
     treeitem.cpp
     mapdetailtreemodel.cpp
 )

@@ -8,7 +8,7 @@ QColor MapDetailTreeModel::getCategoryColor(const QString &category)
     else if (category == "Heap")
         return Qt::GlobalColor::red;
     else if (category == "Stack")
-        return Qt::GlobalColor::yellow;
+        return Qt::GlobalColor::darkYellow;
     else if (category == "Shareable")
         return Qt::GlobalColor::cyan;
     else if (category == "Mapped File")

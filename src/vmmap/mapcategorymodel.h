@@ -1,17 +1,18 @@
-#ifndef MAPTYPEMODEL_H
-#define MAPTYPEMODEL_H
+#ifndef MAPCATEGORYMODEL_H
+#define MAPCATEGORYMODEL_H
 
 #include <QAbstractListModel>
 #include <QHash>
 
 #include "processinfo.h"
+#include "../convert.h"
 
-class MapTypeModel : public QAbstractListModel
+class MapCategoryModel : public QAbstractListModel
 {
     Q_OBJECT
 
 public:
-    MapTypeModel(const std::vector<MMap>& maps, QHash<const MMap*, QString>& hash_map_tag);
+    MapCategoryModel(const QStringList& headers, const std::vector<MMap>& maps, QObject* parent = nullptr);
 
     int rowCount(const QModelIndex & parent = QModelIndex()) const;
     int columnCount(const QModelIndex &parent) const;
@@ -19,9 +20,10 @@ public:
     QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
 
 private:
-    const std::vector<MMap>& m_maps;
-    QHash<const MMap*, QString>& m_hash_map_tag;
-    QStringList m_header;
+    void addMap(const QString& category, const MMap& map);
+
+    QList<QList<QString>*> m_data;
+    QStringList m_headers;
 };
 
-#endif // MAPTYPEMODEL_H
+#endif // MAPCATEGORYMODEL_H

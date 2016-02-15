@@ -71,15 +71,23 @@ void MainWindow::showProcessMap(int pid)
     // get list of MMap
     const std::vector<MMap>& maps = m_pinfo->maps();
 
-    // build models
+    // build MapDetail model
     QStringList headers;
     headers << "Address" << "Type" << "Virtual Size" << "Details";
     m_map_detail_model = new MapDetailTreeModel(headers, maps, this);
     m_proxy_map_detail_model = new QSortFilterProxyModel(this);
     m_proxy_map_detail_model->setSourceModel(m_map_detail_model);
-    ui->treeView_map->setModel(m_proxy_map_detail_model);
+    m_proxy_map_detail_model->setFilterKeyColumn(1); // filter on category
+    ui->treeView_mapdetail->setModel(m_proxy_map_detail_model);
+
+    // build MapCategory model
+    headers.clear();
+    headers << "Type" << "Virtual Size";
+    m_map_category_model = new MapCategoryModel(headers, maps, this);
+    ui->tableView_mapcategory->setModel(m_map_category_model);
 
     // enable ui
-    ui->treeView_map->setEnabled(true);
+    ui->treeView_mapdetail->setEnabled(true);
+    ui->tableView_mapcategory->setEnabled(true);
 }
 
